@@ -2,7 +2,7 @@
 
 namespace GameZone.Models
 {
-    public class GameDevice
+    public class GameDevice :BaseEntity
     {
         [ForeignKey("Game")]
         public int GameId { get; set; }
@@ -10,6 +10,8 @@ namespace GameZone.Models
 
         [ForeignKey("Device")]
         public int DeviceId { get; set; }
+
         public Device Device { get; set; } = default!;
+
     }
 }

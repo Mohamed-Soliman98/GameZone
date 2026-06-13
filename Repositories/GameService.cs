@@ -49,8 +49,8 @@ namespace GameZone.Repositories
                 Devices = model.SelectedDevices.Select(d => new GameDevice { DeviceId = d }).ToList()
 
             };
-            Context.Add(game);
-            await Context.SaveChangesAsync();
+            Context.Add(game) ;
+            Context.SaveChanges();
         }
 
         public async Task<Game?> Edit(EditGameFormVM model)
@@ -75,7 +75,7 @@ namespace GameZone.Repositories
                 game.Cover = await SaveCover(model.Cover!);
             }
 
-            var x = await Context.SaveChangesAsync();
+            var x = Context.SaveChanges();
             if (x > 0)
             {
                 if (hasnewcover)
@@ -109,12 +109,11 @@ namespace GameZone.Repositories
                 return IsDeleted;
 
             Context.Remove(game);
-            var save = Context.SaveChanges();
-            if (save > 0)
+            var save =Context.SaveChanges();
+            if(save>0)
             {
-                IsDeleted = true;
-                var cover = Path.Combine(_ImagePath, game.Cover);
-                File.Delete(cover);
+                IsDeleted  = true;
+                var cover = Path.Combine(_ImagePath,game.Cover);
             }
             return IsDeleted;
         }

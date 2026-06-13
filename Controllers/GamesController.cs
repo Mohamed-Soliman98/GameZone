@@ -4,13 +4,13 @@ namespace GameZone.Controllers
 {
     public class GamesController : Controller
     {
-        private readonly ICategoriesService _categoriesService;
+        private readonly ICatogeriesService _catogeriesService;
         private readonly IDevicesService _devicesService;
         private readonly IGameService _gameService;
 
-        public GamesController(ICategoriesService categoriesService, IDevicesService devicesService, IGameService gameService)
+        public GamesController(ICatogeriesService catogeriesservice, IDevicesService devicesService, IGameService gameService)
         {
-            _categoriesService = categoriesService;
+            _catogeriesService = catogeriesservice;
             _devicesService = devicesService;
             _gameService = gameService;
         }
@@ -33,7 +33,7 @@ namespace GameZone.Controllers
         {
             CreateGameVM createGameVM = new()
             {
-                Categories = _categoriesService.GetSelectList(),
+                Categories = _catogeriesService.GetSelectList(),
                 Devices = _devicesService.GetSelectList()
             };
             return View("CreateGame", createGameVM);
@@ -44,7 +44,7 @@ namespace GameZone.Controllers
         {
             if (!ModelState.IsValid)
             {
-               model.Categories =_categoriesService.GetSelectList();
+               model.Categories =_catogeriesService.GetSelectList();
                model.Devices = _devicesService.GetSelectList();
                 
                 return View("CreateGame",model);
@@ -71,7 +71,7 @@ namespace GameZone.Controllers
                 Description = game.Description,
                 CategoryId = game.CategorieId,
                 SelectedDevices = game.Devices.Select(d => d.DeviceId).ToList(),
-                Categories =_categoriesService.GetSelectList(),
+                Categories =_catogeriesService.GetSelectList(),
                 Devices = _devicesService.GetSelectList(),
                 CurrentCover = game.Cover,
             };
@@ -84,7 +84,7 @@ namespace GameZone.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.Categories = _categoriesService.GetSelectList();
+                model.Categories = _catogeriesService.GetSelectList();
                 model.Devices = _devicesService.GetSelectList();
 
                 return View(model);

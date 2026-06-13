@@ -12,11 +12,11 @@ namespace GameZone
 
             builder.Services.AddDbContext<ApplicationDbContext>(option =>
             option.UseSqlServer(
-            builder.Configuration.GetConnectionString("DefaultConnection")
+            builder.Configuration.GetConnectionString("_ConnectionStrings")
             ?? throw new InvalidOperationException("No Connection string was found")
                                 ));
 
-            builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+            builder.Services.AddScoped<ICatogeriesService, CatogeriesService>();
             builder.Services.AddScoped<IDevicesService , DevicesService>();
             builder.Services.AddScoped<IGameService, GameService>();
 
@@ -24,13 +24,6 @@ namespace GameZone
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
-
-            // Auto-migrate database on startup
-            using (var scope = app.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                db.Database.Migrate();
-            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

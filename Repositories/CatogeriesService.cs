@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GameZone.Repositories
 {
-    public class CategoriesService : ICategoriesService
+    public class CatogeriesService : ICatogeriesService
     {
         ApplicationDbContext Context;
-        public CategoriesService(ApplicationDbContext dbContext)
+        public CatogeriesService(ApplicationDbContext dbContext)
         {
             Context = dbContext;
         }
