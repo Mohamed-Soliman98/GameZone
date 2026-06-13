@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Game>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if(!Model.Any())
+{
+    <div class="alert alert-warning mt-5">
+        <h4 class ="alert-heading">No Games!</h4>
+        <p class="mb-0">No Games wree added yet.</p>
+
+    </div>
+}
+else
+{
+    <div class="row mt-5 g-4">
+        @foreach (var game in Model)
+        {
+            <div class="col-md-4 col-sm-6 col-12">
+                <a class="card game-card text-decoration-none" asp-controller="Games" asp-action="Details" asp-route-id="@game.Id">
+                    <div class="game-cover"
+                         style="background-image:url('@($"{Filesettings.ImagesPath}/{game.Cover}")'); background-size:cover; background-position:center; height :400px;">
+                        <div>
+                            <span class="badge rounded-0 fs-3"
+                                  style="background: #ff3ea5;">
+                                @game.Categorie.Name
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+                        <h5>@game.Name</h5>
+                        <div class="devices">
+                            @foreach (var gd in game.Devices)
+                            {
+                                <i class="@gd.Device.Icon me-2 fs-4"></i>
+                            }
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}
+
+
